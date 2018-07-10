@@ -32,6 +32,9 @@ class ApplicationController < Sinatra::Base
     @user = User.find_by(email: params["email"], password: params["password"])
     session[:id] = @user.id
     redirect '/users/home'
+    if @user.id != session[:id]
+      redirect '/sessions/login'
+    end
   end
 
   get '/sessions/logout' do
